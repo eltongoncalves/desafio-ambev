@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/revendas")
+@RequestMapping("/revenda")
 public class RevendaController {
+
     @Autowired
     private RevendaService revendaService;
 

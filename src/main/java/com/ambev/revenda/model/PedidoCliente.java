@@ -12,21 +12,18 @@ public class PedidoCliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String tipoCliente;
-    private String clienteId;
-    private String nomeCliente;
-    private String emailCliente;
-    private String telefoneCliente;
-    private String documentoCliente;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private Cliente cliente;
+
     private LocalDateTime dataPedido;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<ItemPedido> itens;
 
     @ManyToOne
-    @JoinColumn(name = "revenda_id", nullable = false) // Adicionando a associação com Revenda
+    @JoinColumn(name = "revenda_id", nullable = false)
     private Revenda revenda;
-
 
     public Long getId() {
         return id;
@@ -36,52 +33,12 @@ public class PedidoCliente {
         this.id = id;
     }
 
-    public String getTipoCliente() {
-        return tipoCliente;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setTipoCliente(String tipoCliente) {
-        this.tipoCliente = tipoCliente;
-    }
-
-    public String getClienteId() {
-        return clienteId;
-    }
-
-    public void setClienteId(String clienteId) {
-        this.clienteId = clienteId;
-    }
-
-    public String getNomeCliente() {
-        return nomeCliente;
-    }
-
-    public void setNomeCliente(String nomeCliente) {
-        this.nomeCliente = nomeCliente;
-    }
-
-    public String getEmailCliente() {
-        return emailCliente;
-    }
-
-    public void setEmailCliente(String emailCliente) {
-        this.emailCliente = emailCliente;
-    }
-
-    public String getTelefoneCliente() {
-        return telefoneCliente;
-    }
-
-    public void setTelefoneCliente(String telefoneCliente) {
-        this.telefoneCliente = telefoneCliente;
-    }
-
-    public String getDocumentoCliente() {
-        return documentoCliente;
-    }
-
-    public void setDocumentoCliente(String documentoCliente) {
-        this.documentoCliente = documentoCliente;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public LocalDateTime getDataPedido() {

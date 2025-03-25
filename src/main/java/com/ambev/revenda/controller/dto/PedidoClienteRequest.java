@@ -6,14 +6,14 @@ import java.util.List;
 public class PedidoClienteRequest {
 
     private String tipoCliente;
-    private String clienteId;
     private String nomeCliente;
     private String emailCliente;
     private String telefoneCliente;
     private String documentoCliente;
     private LocalDateTime dataPedido;
     private List<ItemPedidoRequest> itens;
-    private Long revendaId; // Apenas o ID da revenda
+    private Long revendaId;
+    private Long clienteId;
 
     public String getTipoCliente() {
         return tipoCliente;
@@ -21,14 +21,6 @@ public class PedidoClienteRequest {
 
     public void setTipoCliente(String tipoCliente) {
         this.tipoCliente = tipoCliente;
-    }
-
-    public String getClienteId() {
-        return clienteId;
-    }
-
-    public void setClienteId(String clienteId) {
-        this.clienteId = clienteId;
     }
 
     public String getNomeCliente() {
@@ -85,5 +77,13 @@ public class PedidoClienteRequest {
 
     public void setRevendaId(Long revendaId) {
         this.revendaId = revendaId;
+    }
+
+    public Long getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
     }
 }

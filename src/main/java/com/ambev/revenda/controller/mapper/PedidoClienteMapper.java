@@ -11,7 +11,9 @@ import org.mapstruct.factory.Mappers;
 public interface PedidoClienteMapper {
 
     PedidoClienteMapper INSTANCE = Mappers.getMapper(PedidoClienteMapper.class);
+
     @Mapping(source = "revendaId", target = "revenda.id")
+    @Mapping(source = "clienteId", target = "cliente.id")
     PedidoCliente toEntity(PedidoClienteRequest pedidoClienteRequest);
 
     PedidoClienteRequest toDto(PedidoCliente pedidoCliente);
