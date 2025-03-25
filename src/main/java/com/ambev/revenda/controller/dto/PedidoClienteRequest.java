@@ -1,16 +1,9 @@
-package com.ambev.revenda.model;
+package com.ambev.revenda.controller.dto;
 
-
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-public class PedidoCliente {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class PedidoClienteRequest {
 
     private String tipoCliente;
     private String clienteId;
@@ -19,14 +12,8 @@ public class PedidoCliente {
     private String telefoneCliente;
     private String documentoCliente;
     private LocalDateTime dataPedido;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<ItemPedido> itens;
-
-    @ManyToOne
-    @JoinColumn(name = "revenda_id", nullable = false) // Adicionando a associação com Revenda
-    private Revenda revenda;
-
+    private List<ItemPedidoRequest> itens;
+    private Long revendaId; // Apenas o ID da revenda
 
     public Long getId() {
         return id;
@@ -92,19 +79,19 @@ public class PedidoCliente {
         this.dataPedido = dataPedido;
     }
 
-    public List<ItemPedido> getItens() {
+    public List<ItemPedidoRequest> getItens() {
         return itens;
     }
 
-    public void setItens(List<ItemPedido> itens) {
+    public void setItens(List<ItemPedidoRequest> itens) {
         this.itens = itens;
     }
 
-    public Revenda getRevenda() {
-        return revenda;
+    public Long getRevendaId() {
+        return revendaId;
     }
 
-    public void setRevenda(Revenda revenda) {
-        this.revenda = revenda;
+    public void setRevendaId(Long revendaId) {
+        this.revendaId = revendaId;
     }
 }

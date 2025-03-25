@@ -1,6 +1,7 @@
 package com.ambev.revenda.controller;
 
 
+import com.ambev.revenda.controller.dto.PedidoClienteRequest;
 import com.ambev.revenda.model.PedidoCliente;
 import com.ambev.revenda.service.PedidoClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,21 +11,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pedidos")
+@RequestMapping("/pedido-cliente")
 public class PedidoClienteController {
 
     @Autowired
     private PedidoClienteService pedidoClienteService;
 
     @PostMapping
-    public ResponseEntity<PedidoCliente> criarPedido(@RequestBody PedidoCliente pedido) {
-        PedidoCliente pedidoCriado = pedidoClienteService.criarPedido(pedido);
-        return new ResponseEntity<>(pedidoCriado, HttpStatus.CREATED);
+    public ResponseEntity<PedidoCliente> criarPedido(@RequestBody PedidoClienteRequest pedido) {
+        return new ResponseEntity<>(pedidoClienteService.criarPedido(pedido), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<PedidoCliente>> listarPedidos() {
-        List<PedidoCliente> pedidos = pedidoClienteService.listarPedidos();
-        return new ResponseEntity<>(pedidos, HttpStatus.OK);
+        return new ResponseEntity<>(pedidoClienteService.listarPedidos(), HttpStatus.OK);
+    }
+
+    @GetMapping("/{revendaId}")
+    public ResponseEntity<List<PedidoCliente>> listarPedidosPorRevenda(@PathVariable Long revendaId) {
+        return new ResponseEntity<>(pedidoClienteService.listarPedidosPorRevenda(revendaId), HttpStatus.OK);
     }
 }
