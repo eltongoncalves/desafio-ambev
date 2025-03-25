@@ -16,14 +16,14 @@ public class PedidoCliente {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
+    @ManyToOne
+    @JoinColumn(name = "revenda_id", nullable = false)
+    private Revenda revenda;
+
     private LocalDateTime dataPedido;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<ItemPedido> itens;
-
-    @ManyToOne
-    @JoinColumn(name = "revenda_id", nullable = false)
-    private Revenda revenda;
 
     public Long getId() {
         return id;

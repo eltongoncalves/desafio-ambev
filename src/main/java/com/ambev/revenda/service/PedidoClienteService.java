@@ -21,13 +21,21 @@ public class PedidoClienteService {
     @Autowired
     private RevendaService revendaService;
 
-
+    @Autowired
+    private ClienteService clienteService;
 
     public PedidoCliente criarPedido(PedidoClienteRequest pedidoClienteRequest) {
-         revendaService.buscarPorId(pedidoClienteRequest.getRevendaId())
+         var revenda  = revendaService.buscarPorId(pedidoClienteRequest.getRevendaId())
                 .orElseThrow(() -> new RuntimeException("Revenda não encontrada"));
+
+        var cliente  = clienteService.buscarPorId(pedidoClienteRequest.getRevendaId())
+                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+
         PedidoCliente pedidoCliente = pedidoClienteMapper.toEntity(pedidoClienteRequest);
-        return pedidoClienteRepository.save(pedidoCliente);
+        var retorno = pedidoClienteRepository.save(pedidoCliente);
+        retorno.setRevenda(revenda);
+        retorno.setCliente(cliente);
+        return retorno;
     }
 
     public List<PedidoCliente> listarPedidos() {
