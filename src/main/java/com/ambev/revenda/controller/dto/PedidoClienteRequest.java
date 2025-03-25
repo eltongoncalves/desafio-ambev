@@ -15,14 +15,6 @@ public class PedidoClienteRequest {
     private List<ItemPedidoRequest> itens;
     private Long revendaId; // Apenas o ID da revenda
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getTipoCliente() {
         return tipoCliente;
     }
