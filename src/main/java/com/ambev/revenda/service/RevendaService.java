@@ -1,12 +1,22 @@
 package com.ambev.revenda.service;
 
+import com.ambev.revenda.controller.dto.ItemPedidoRequest;
+import com.ambev.revenda.controller.mapper.PedidoClienteMapper;
+import com.ambev.revenda.integration.PedidoFornecedorRequest;
+import com.ambev.revenda.integration.PedidoFornecedorResponse;
+import com.ambev.revenda.integration.SolicitacaoRevendaClient;
+import com.ambev.revenda.model.ItemPedido;
+import com.ambev.revenda.model.PedidoCliente;
 import com.ambev.revenda.model.Revenda;
 import com.ambev.revenda.repository.RevendaRepository;
 import com.ambev.revenda.utils.CnpjValidator;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RevendaService {
@@ -15,6 +25,9 @@ public class RevendaService {
 
     @Autowired
     private CnpjValidator cnpjValidator;
+
+    @Autowired
+    private PedidoClienteMapper pedidoClienteMapper;
 
     public Revenda salvar(Revenda revenda) {
         if (!cnpjValidator.isValid(revenda.getCnpj())) {
@@ -37,4 +50,5 @@ public class RevendaService {
     public void excluir(Long id) {
         revendaRepository.deleteById(id);
     }
+
 }
