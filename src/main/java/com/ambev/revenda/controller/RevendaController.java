@@ -2,7 +2,6 @@ package com.ambev.revenda.controller;
 
 import com.ambev.revenda.model.Revenda;
 import com.ambev.revenda.service.RevendaService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -12,8 +11,11 @@ import java.util.Optional;
 @RequestMapping("/revenda")
 public class RevendaController {
 
-    @Autowired
-    private RevendaService revendaService;
+    private final RevendaService revendaService;
+
+    public RevendaController(RevendaService revendaService) {
+        this.revendaService = revendaService;
+    }
 
     @PostMapping
     public ResponseEntity<Revenda> criar(@RequestBody Revenda revenda) {

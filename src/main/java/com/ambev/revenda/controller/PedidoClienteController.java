@@ -4,7 +4,6 @@ package com.ambev.revenda.controller;
 import com.ambev.revenda.controller.dto.PedidoClienteRequest;
 import com.ambev.revenda.model.PedidoCliente;
 import com.ambev.revenda.service.PedidoClienteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,11 @@ import java.util.List;
 @RequestMapping("/pedido-cliente")
 public class PedidoClienteController {
 
-    @Autowired
-    private PedidoClienteService pedidoClienteService;
+    private final PedidoClienteService pedidoClienteService;
+
+    public PedidoClienteController(PedidoClienteService pedidoClienteService) {
+        this.pedidoClienteService = pedidoClienteService;
+    }
 
     @PostMapping
     public ResponseEntity<PedidoCliente> criarPedido(@RequestBody PedidoClienteRequest pedido) {

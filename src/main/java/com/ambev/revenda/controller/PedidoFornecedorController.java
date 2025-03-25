@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/fornecedor")
 public class PedidoFornecedorController {
 
-    @Autowired
-    private FornecedorService fornecedorService;
+    private final FornecedorService fornecedorService;
+
+    public PedidoFornecedorController(FornecedorService fornecedorService) {
+        this.fornecedorService = fornecedorService;
+    }
 
     @GetMapping("/{revendaId}")
     public ResponseEntity<PedidoFornecedorResponse> processarPedido(@PathVariable Long revendaId) {

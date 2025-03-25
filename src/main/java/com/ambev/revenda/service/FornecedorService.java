@@ -17,18 +17,21 @@ import java.util.stream.Collectors;
 @Service
 public class FornecedorService {
 
-    @Autowired
-    private RevendaService revendaService;
-
-    @Autowired
-    private PedidoClienteService pedidoClienteService;
 
     @Autowired
     private SolicitacaoRevendaClient client;
 
-    @Autowired
-    private PedidoClienteMapper pedidoClienteMapper;
+    private final RevendaService revendaService;
+    private final PedidoClienteService pedidoClienteService;
+    private final PedidoClienteMapper pedidoClienteMapper;
 
+    public FornecedorService(RevendaService revendaService,
+                             PedidoClienteService pedidoClienteService,
+                             PedidoClienteMapper pedidoClienteMapper) {
+        this.revendaService = revendaService;
+        this.pedidoClienteService = pedidoClienteService;
+        this.pedidoClienteMapper = pedidoClienteMapper;
+    }
 
     @Transactional
     public PedidoFornecedorResponse enviarPedidoFornecedorByRevenda(Long revendaId) {
@@ -45,7 +48,6 @@ public class FornecedorService {
 
             throw new RuntimeException("O minimo de produtos deve ser maior que 1000");
         }
-
         throw new RuntimeException("Revenda não encontrada");
     }
 

@@ -10,24 +10,25 @@ import com.ambev.revenda.model.PedidoCliente;
 import com.ambev.revenda.model.Revenda;
 import com.ambev.revenda.repository.RevendaRepository;
 import com.ambev.revenda.utils.CnpjValidator;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class RevendaService {
-    @Autowired
-    private RevendaRepository revendaRepository;
 
-    @Autowired
-    private CnpjValidator cnpjValidator;
+    private final RevendaRepository revendaRepository;
+    private final CnpjValidator cnpjValidator;
 
-    @Autowired
-    private PedidoClienteMapper pedidoClienteMapper;
+
+    public RevendaService(RevendaRepository revendaRepository,
+                          CnpjValidator cnpjValidator,
+                          PedidoClienteMapper pedidoClienteMapper) {
+        this.revendaRepository = revendaRepository;
+        this.cnpjValidator = cnpjValidator;
+
+    }
 
     public Revenda salvar(Revenda revenda) {
         if (!cnpjValidator.isValid(revenda.getCnpj())) {

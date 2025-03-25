@@ -4,7 +4,6 @@ import com.ambev.revenda.controller.dto.PedidoClienteRequest;
 import com.ambev.revenda.controller.mapper.PedidoClienteMapper;
 import com.ambev.revenda.model.PedidoCliente;
 import com.ambev.revenda.repository.PedidoClienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -12,17 +11,20 @@ import java.util.List;
 @Service
 public class PedidoClienteService {
 
-    @Autowired
-    private PedidoClienteRepository pedidoClienteRepository;
+    private final PedidoClienteRepository pedidoClienteRepository;
+    private final PedidoClienteMapper pedidoClienteMapper;
+    private final RevendaService revendaService;
+    private final ClienteService clienteService;
 
-    @Autowired
-    private PedidoClienteMapper pedidoClienteMapper;
-
-    @Autowired
-    private RevendaService revendaService;
-
-    @Autowired
-    private ClienteService clienteService;
+    public PedidoClienteService(PedidoClienteRepository pedidoClienteRepository,
+                                PedidoClienteMapper pedidoClienteMapper,
+                                RevendaService revendaService,
+                                ClienteService clienteService) {
+        this.pedidoClienteRepository = pedidoClienteRepository;
+        this.pedidoClienteMapper = pedidoClienteMapper;
+        this.revendaService = revendaService;
+        this.clienteService = clienteService;
+    }
 
     public PedidoCliente criarPedido(PedidoClienteRequest pedidoClienteRequest) {
          var revenda  = revendaService.buscarPorId(pedidoClienteRequest.getRevendaId())
